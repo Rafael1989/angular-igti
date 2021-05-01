@@ -1,0 +1,68 @@
+<div>
+  <!-- Dicas sobre o input:
+    - (keyup) - forma do Angular trabalhar com eventos. Neste caso, onKeyUp
+    - $event - forma do Angular acessar o objeto de evento do JavaScript
+
+    Neste caso, mapeamos o input no evento keyUp. Caso a tecla digitada pelo
+    usuário seja a 13 (ENTER) e há texto no input,
+    acionamos o método de inclusão de tarefa. -->
+
+  <label>
+    Nova tarefa:
+    <input autofocus
+      type="text"
+      (keyup.enter)="addTask($event.target.value)">
+  </label>
+</div>
+
+<div>
+  <p>
+    Lista de tarefas:
+  </p>
+  <!-- Alguns detalhes sobre o Angular aqui:
+
+    - *ngIf é uma diretiva que exibe o componente
+    caso a condição seja Verdadeira. O else é opcional
+    e nele indicamos um identificador, que será
+    utilizado posteriormente com <ng-template>
+
+    - *ngFor é uma diretiva para iterações. Nela, utilizamos
+      "let singular of plural" (boa prática) para percorrer
+      alguma coleção (neste caso, tasks). Internamente, temos
+      acesso a cada item através de "task".
+
+    [ngClass] - inclusão de classe CSS conforme condição interna.
+    [disabled] - validação do atributo conforme condição interna.
+
+    Quando utilizamos [] em atributos, significa que o conteúdo é
+    JavaScript e não string (padrão).
+
+    (click) - tratamento do evento onClick.
+
+    {{ atributo }} - sintaxe de binding da classe para o template,
+    com double curly braces. Neste caso, estamos exibindo o valor
+    de task.description. -->
+
+  <ul *ngIf="!!tasks && tasks.length > 0; else noTasks">
+
+    <li *ngFor="let task of tasks"
+      [ngClass]="task.status === 'done' && 'completed'">
+      <button (click)="removeTask(task)"
+        class="waves-effect waves-light btn-small red">
+        x
+      </button>
+      <button [disabled]="task.isCompleted()"
+        (click)="completeTask(task)"
+        class="waves-effect waves-light btn-small">
+        ✓
+      </button>
+      {{ '  ' + task.description }}
+    </li>
+  </ul>
+
+  <!-- Tratamento do else de *ngIf -->
+  <ng-template #noTasks>
+    <p>Nenhuma tarefa cadastrada.</p>
+  </ng-template>
+
+</div>
