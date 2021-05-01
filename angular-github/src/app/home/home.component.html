@@ -1,0 +1,46 @@
+<!--
+  O Angular possui "pseudo-events" como o "keyup.enter", tornando
+  o código mais legível. Compare com a linha abaixo, que faz a mesma
+  coisa só que de forma mais verbosa e, consequentemente, menos legível:
+
+  (keyup)="$event.keyCode === 13 && changeLogin($event.target.value)"
+-->
+<div>
+  <input
+    autofocus
+    [value]="login"
+    [disabled]="isFetchingData"
+    (keyup.enter)="changeLogin($event.target.value)"
+    placeholder="Usuário do Github..."
+  >
+  <!--
+    Só exibimos app-user-info se houver, de fato,
+    um usuário a ser exibido.
+  -->
+  <div *ngIf="!!userInfo; else noUser">
+    <app-user-info [user]="userInfo"></app-user-info>
+  </div>
+  <ng-template #noUser>
+    <p id="message">
+      {{ isFetchingData ? 'Carregando...' : 'Informe um usuário válido do Github' }}
+    </p>
+  </ng-template>
+</div>
+
+<!--
+  Curiosidade: o *ngIf é açúcar sintático
+  para <template [ngIf]>, conforme exemplo
+  abaixo. O mesmo se aplica para *ngFor:
+
+  Fonte: https://stackoverflow.com/questions/40078189/angular-2-why-asterisk
+
+  <p *ngIf="condition">
+    Our heroes are true!
+  </p>
+
+  <template [ngIf]="condition">
+    <p>
+      Our heroes are true!
+    </p>
+  </template>
+-->

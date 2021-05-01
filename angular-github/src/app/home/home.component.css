@@ -1,0 +1,15 @@
+div {
+  background: white;
+  padding: 20px;
+}
+
+input {
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+#message {
+  font-weight: bold;
+  text-align: center;
+}

@@ -1,0 +1,69 @@
+<!--
+  Aqui, uso uma lógica em [class] para
+  renderizar dinamicamente a  class 'active'
+  conforme o valor de 'currentTab'. Portanto,
+  ao utilizar [] em atributos, o conteúdo deixa
+  de ser string e passa a ser JavaScript.
+-->
+<ul class="header">
+  <li
+    (click)="changeTab('home')"
+    [class]="currentTab === 'home' && 'active'"
+  >
+    Home
+  </li>
+
+  <li
+    (click)="changeTab('repos')"
+    [class]="currentTab === 'repos' && 'active'"
+  >
+    Repositórios {{ getReposCount() }}
+  </li>
+
+  <li
+    (click)="changeTab('starred')"
+    [class]="currentTab === 'starred' && 'active'"
+  >
+    Favoritos {{ getStarredCount() }}
+  </li>
+</ul>
+
+<!--
+  Em app-home, enviamos o método onLoginChange($event)
+  no formato de evento: (loginChanged)
+  para ser executado "por lá", pois lá haverá um input
+  para esse fim. Quando enviamos métodos aos componentes
+  filhos, o identificador (loginChanged) é normalmente
+  recebido com a decoração de @Output no .ts do componente.
+
+  Já os atributos enviados com [] podem ser recebidos com
+  a decoração @Input.
+
+  [hidden] já é um padrão do Angular para exibir/esconder itens
+  conforme a lógica. Uso aqui para mostrar somente o conteúdo
+  relevante conforme a aba escolhida pelo usuário.
+-->
+<div class="content">
+  <app-home
+    [login]="login"
+    [userInfo]="userInfo"
+    [isFetchingData]="isFetchingData"
+    (loginChanged)="onLoginChange($event)"
+    [hidden]="currentTab !== 'home'"
+  ></app-home>
+
+  <app-repos
+    type="repos"
+    [repos]="repos"
+    [hidden]="currentTab !== 'repos'"
+    [isFetchingData]="isFetchingData"
+  ></app-repos>
+
+  <app-repos
+    type="starred"
+    [repos]="starred"
+    [hidden]="currentTab !== 'starred'"
+    [isFetchingData]="isFetchingData"
+  ></app-repos>
+
+</div>

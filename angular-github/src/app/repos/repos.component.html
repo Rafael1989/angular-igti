@@ -1,0 +1,22 @@
+<div>
+  <!--
+    Só mostramos repositórios caso existam.
+    Perceba também que o atributo href do link é
+    dinâmico assim como o conteúdo de <a>
+  -->
+  <ul *ngIf="!isFetchingData && !!repos && repos.length > 0; else nenhum">
+    <li *ngFor="let repo of repos">
+      <a
+        [href]="repo.html_url"
+        target="_blank"
+      >
+        {{ repo.name }}
+      </a>
+    </li>
+  </ul>
+  <ng-template #nenhum>
+    <p>
+      {{ getFeedback( )}}
+    </p>
+  </ng-template>
+</div>

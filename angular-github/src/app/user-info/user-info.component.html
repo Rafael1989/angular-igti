@@ -1,0 +1,25 @@
+<div class="user-info">
+  <img
+    [src]="user.avatar"
+    [alt]="user.name"
+    [title]="user.name"
+    class="avatar"
+  >
+  <div>
+    <h2>
+      {{ user.name }}
+      <a
+        class="full-name-link"
+        [href]="getUrl()"
+        target="_blank"
+      >
+        ({{ user.login }})
+      </a>
+    </h2>
+
+    <ul class="user-data">
+      <li>Seguidores: {{ user.followers }}</li>
+      <li>Seguindo: {{ user.following }}</li>
+    </ul>
+  </div>
+</div>
