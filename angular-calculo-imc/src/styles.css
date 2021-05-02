@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+html {
+    height: 100%;
+    background-image: url(https://media.giphy.com/media/C4XAKMeIxZFQqM8ALj/giphy.gif);
+    background-repeat: no-repeat, repeat;
+    background-size: cover; 
+  }
+
+  body{
+      padding: 10px;
+  }
